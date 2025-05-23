@@ -1,0 +1,70 @@
+{
+  "name": "zen-vscode-theme",
+  "displayName": "Zen Theme",
+  "description": "Zen theme for VS Code",
+  "type": "module",
+  "publisher": "Cmion",
+  "license": "MIT",
+  "icon": "icon.png",
+  "galleryBanner": {
+    "color": "#1b1f23",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cmion/zen-vscode-theme"
+  },
+  "bugs": {
+    "url": "https://github.com/cmion/zen-vscode-theme/issues"
+  },
+  "engines": {
+    "vscode": "^1.43.0"
+  },
+  "categories": [
+    "Themes"
+  ],
+  "keywords": [
+    "theme",
+    "zen",
+    "sakura",
+    "light",
+    "dark"
+  ],
+  "contributes": {
+    "themes": [
+      {
+        "label": "Zen Dark",
+        "uiTheme": "vs-dark",
+        "path": "./themes/zen-dark.json"
+      },
+      {
+        "label": "Zen Sakura (Cherry Blossom)",
+        "uiTheme": "vs-dark",
+        "path": "./themes/zen-sakura.json"
+      }
+    ]
+  },
+  "devDependencies": {
+    "@changesets/changelog-github": "^0.5.1",
+    "@changesets/cli": "^2.29.4",
+    "@primer/primitives": "7.10.0",
+    "@types/bun": "latest",
+    "@types/chroma-js": "^3.1.1",
+    "@vscode/vsce": "^3.4.2",
+    "chroma-js": "^3.1.2",
+    "color": "^5.0.0"
+  },
+  "scripts": {
+    "start": "bun --hot src/index.ts",
+    "build": "bun run src/index.ts && mkdir -p build",
+    "package": "vsce package -o ./build/zen-vscode-theme.vsix",
+    "prepublishOnly": "bun run build && vsce publish",
+    "release": "changeset publish"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
