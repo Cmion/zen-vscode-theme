@@ -2,7 +2,7 @@
   "name": "zen-vscode-theme",
   "displayName": "Zen Theme",
   "description": "Zen theme for VS Code",
-  "type": "module",
+  "version": "1.0.0",
   "publisher": "Cmion",
   "license": "MIT",
   "icon": "icon.png",
@@ -18,7 +18,7 @@
     "url": "https://github.com/cmion/zen-vscode-theme/issues"
   },
   "engines": {
-    "vscode": "^1.43.0"
+    "vscode": "^1.100.0"
   },
   "categories": [
     "Themes"
@@ -56,7 +56,7 @@
   },
   "scripts": {
     "start": "bun --hot src/index.ts",
-    "build": "bun run src/index.ts && mkdir -p build",
+    "build": "bun src/index.ts && mkdir -p build",
     "package": "vsce package -o ./build/zen-vscode-theme.vsix",
     "prepublishOnly": "bun run build && vsce publish",
     "release": "changeset publish"

@@ -10,7 +10,7 @@
       },
       "problemMatcher": [],
       "label": "npm: start",
-      "detail": "nodemon --watch src src/index.js"
+      "detail": "bun --hot src src/index.ts"
     },
     {
       "type": "npm",
@@ -18,7 +18,7 @@
       "group": "build",
       "problemMatcher": [],
       "label": "npm: build",
-      "detail": "node src/index.js"
+      "detail": "bun run src/index.ts"
     }
   ]
 }
