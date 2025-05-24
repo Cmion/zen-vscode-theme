@@ -48,13 +48,13 @@ export function getTheme({
       "icon.foreground": colors.text,
       "keybindingLabel.foreground": colors.fg,
 
-      "button.background": colors.button,
-      "button.foreground": colors.text,
-      "button.hoverBackground": colors.accent50,
+      "button.background": colors.accent,
+      "button.foreground": colors.bg,
+      "button.hoverBackground": colors.accent70,
 
-      "button.secondaryBackground": colors.accent,
-      "button.secondaryForeground": colors.bg,
-      "button.secondaryHoverBackground": colors.accent50,
+      "button.secondaryBackground": colors.button,
+      "button.secondaryForeground": colors.text,
+      "button.secondaryHoverBackground": alpha(colors.button, 0.75),
 
       "checkbox.background": colors.bg,
       "checkbox.border": colors.border,
@@ -343,6 +343,7 @@ export function getTheme({
       "settings.headerForeground": colors.fg,
       "settings.modifiedItemIndicator": colors.text,
       "welcomePage.buttonBackground": colors.accent,
+      "welcomePage.buttonForeground": colors.bg,
       "welcomePage.buttonHoverBackground": colors.accent50,
     },
     semanticHighlighting: true,
