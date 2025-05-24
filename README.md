@@ -1,6 +1,6 @@
 # Zen's VS Code themes
 
-![Zen VS Code theme](https://user-images.githubusercontent.com/378023/132220037-3cd3e777-55a6-445f-9a2e-da6020ebd78d.png)
+![Zen VS Code theme](https://raw.githubusercontent.com/Cmion/zen-vscode-theme/refs/heads/main/previews/preview-zig.png)
 
 ## Install 
 
