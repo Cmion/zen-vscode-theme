@@ -26,9 +26,6 @@ To override this (or any other) theme in your personal config file, please follo
 6. Run `bun run build` to update the theme. You can also run `bun start` instead to automatically rebuild the theme while making changes and no reloading should be necessary.
 7. Once you're happy, commit your changes and open a PR.
 
-Note:
-
-- If possible use colors from [Primer's color system](https://primer.style/primitives/colors).
 
 ## Publish (internal)
 
