@@ -18,7 +18,9 @@ export function getTheme({
   theme: "zen-dark" | "zen-sakura";
   name: string;
 }) {
-  const colors = getColors(theme);
+  const base = getColors(theme);
+  const colors = base.colors;
+  const syntax = base.syntax;
 
   const alpha = (color: string, alpha: number) => {
     return chroma(color).alpha(alpha).hex();
@@ -97,7 +99,7 @@ export function getTheme({
       "list.foreground": alpha(colors.text, 0.75),
       "list.hoverForeground": colors.accent,
       "list.inactiveSelectionForeground": alpha(colors.text, 0.75),
-      "list.activeSelectionForeground": '#ff55ff',
+      "list.activeSelectionForeground": colors.accent,
       "list.hoverBackground": colors.table,
       "list.inactiveSelectionBackground": colors.table,
       "list.activeSelectionBackground": colors.table,
@@ -109,7 +111,6 @@ export function getTheme({
       "list.errorForeground": colors.red,
       "list.warningForeground": colors.yellow,
       "listFilterWidget.background": colors.bg,
-      
 
       "tree.indentGuidesStroke": colors.button,
       "tree.tableColumnsBorder": colors.border,
@@ -246,80 +247,80 @@ export function getTheme({
       "debugConsoleInputIcon.foreground": colors.accent,
 
       "debugTokenExpression.name": colors.text,
-      "debugTokenExpression.value": "#C3E88D", // From DEBUGGER_INLINED_VALUES or DEFAULT_STRING
-      "debugTokenExpression.string": "#C3E88D", // From DEFAULT_STRING
-      "debugTokenExpression.boolean": "#F78C6C", // From JSON.KEYWORD (true/false) or GO_TRUE_FALSE
-      "debugTokenExpression.number": "#F78C6C", // From DEFAULT_NUMBER
-      "debugTokenExpression.error": "#FF5370",
+      "debugTokenExpression.value": syntax.defaultString, // From DEBUGGER_INLINED_VALUES or DEFAULT_STRING
+      "debugTokenExpression.string": syntax.defaultString, // From DEFAULT_STRING
+      "debugTokenExpression.boolean": syntax.boolean, // From JSON.KEYWORD (true/false) or GO_TRUE_FALSE
+      "debugTokenExpression.number": syntax.number, // From DEFAULT_NUMBER
+      "debugTokenExpression.error": syntax.invalid,
       // From CONSOLE_ERROR_OUTPUT or ERRORS_ATTRIBUTES
-      "symbolIcon.arrayForeground": "#89DDFF", // DEFAULT_BRACKETS
-      "symbolIcon.booleanForeground": "#f78c6c", // JSON.KEYWORD style
-      "symbolIcon.classForeground": "#ffcb6b", // CLASS_NAME_ATTRIBUTES
+      "symbolIcon.arrayForeground": syntax.brackets, // DEFAULT_BRACKETS
+      "symbolIcon.booleanForeground": syntax.boolean, // JSON.KEYWORD style
+      "symbolIcon.classForeground": syntax.className, // CLASS_NAME_ATTRIBUTES
       // For abstract class, VS Code doesn't have a separate SymbolKind.
       // You'd typically rely on the icon theme or text decoration if supported.
       // If you want abstract classes to look different, you might use a slightly
       // different shade if your tokenColor for abstract classes is different.
       // For now, using the class color.
-      "symbolIcon.colorForeground": "#EBC88D", // CSS.COLOR
-      "symbolIcon.constantForeground": "#f78c6c", // DEFAULT_CONSTANT
-      "symbolIcon.constructorForeground": "#98FF98", // Like a function
-      "symbolIcon.enumeratorForeground": "#c3e88d", // Using Abstract Class color as a distinct "type-like" green
-      "symbolIcon.enumeratorMemberForeground": "#f78c6c", // DEFAULT_CONSTANT (or 9373a5 if ENUM_CONST was used)
-      "symbolIcon.eventForeground": "#e093d9", // ANNOTATION_NAME_ATTRIBUTES (events are often annotated)
-      "symbolIcon.fieldForeground": "#f8f8f2", // DEFAULT_INSTANCE_FIELD
-      "symbolIcon.fileForeground": "#C3E88D", // A general "resource" green
-      "symbolIcon.folderForeground": "#FFCB6B", // A general "container" yellow
-      "symbolIcon.functionForeground": "#98FF98", // DEFAULT_FUNCTION_DECLARATION
-      "symbolIcon.interfaceForeground": "#c3e88d", // DEFAULT_INTERFACE_NAME
-      "symbolIcon.keyForeground": "#e093d9", // JSON.PROPERTY_KEY
-      "symbolIcon.keywordForeground": "#e093d9", // DEFAULT_KEYWORD
-      "symbolIcon.methodForeground": "#98FF98", // DEFAULT_INSTANCE_METHOD / DEFAULT_STATIC_METHOD
-      "symbolIcon.moduleForeground": "#c3e88d", // TS.MODULE_NAME
-      "symbolIcon.namespaceForeground": "#c3e88d", // TS.MODULE_NAME
-      "symbolIcon.nullForeground": "#f78c6c", // JSON.KEYWORD style
-      "symbolIcon.numberForeground": "#f78c6c", // DEFAULT_NUMBER
-      "symbolIcon.objectForeground": "#ffcb6b", // Like a class instance
-      "symbolIcon.operatorForeground": "#89DDFF", // DEFAULT_OPERATION_SIGN
-      "symbolIcon.packageForeground": "#ffcb6b", // GO_PACKAGE
-      "symbolIcon.propertyForeground": "#E0E1E4", // CSS.PROPERTY_NAME or a general property light color
-      "symbolIcon.referenceForeground": "#89DDFF", // For references, if applicable
-      "symbolIcon.snippetForeground": "#C3E88D", // String color
-      "symbolIcon.stringForeground": "#c3e88d", // DEFAULT_STRING
-      "symbolIcon.structForeground": "#ffcb6b", // Like a class
-      "symbolIcon.textForeground": "#F8F8F2", // TEXT default
-      "symbolIcon.typeParameterForeground": "#f78c6c", // TYPE_PARAMETER_NAME_ATTRIBUTES
-      "symbolIcon.unitForeground": "#f78c6c", // Number-like
-      "symbolIcon.variableForeground": "#f8f8f2", // DEFAULT_LOCAL_VARIABLE
+      "symbolIcon.colorForeground": syntax.text,
+      "symbolIcon.constantForeground": syntax.constant, // DEFAULT_CONSTANT
+      "symbolIcon.constructorForeground": syntax.functionCall, // Like a function
+      "symbolIcon.enumeratorForeground": syntax.type, // Using Abstract Class color as a distinct "type-like" green
+      "symbolIcon.enumeratorMemberForeground": syntax.constant, // DEFAULT_CONSTANT (or 9373a5 if ENUM_CONST was used)
+      "symbolIcon.eventForeground": syntax.keyword, // ANNOTATION_NAME_ATTRIBUTES (events are often annotated)
+      "symbolIcon.fieldForeground": syntax.text, // DEFAULT_INSTANCE_FIELD
+      "symbolIcon.fileForeground": syntax.type, // A general "resource" green
+      "symbolIcon.folderForeground": syntax.className, // A general "container" yellow
+      "symbolIcon.functionForeground": syntax.functionDeclaration, // DEFAULT_FUNCTION_DECLARATION
+      "symbolIcon.interfaceForeground": syntax.type, // DEFAULT_INTERFACE_NAME
+      "symbolIcon.keyForeground": syntax.keyword, // JSON.PROPERTY_KEY
+      "symbolIcon.keywordForeground": syntax.keyword, // DEFAULT_KEYWORD
+      "symbolIcon.methodForeground": syntax.functionDeclaration, // DEFAULT_INSTANCE_METHOD / DEFAULT_STATIC_METHOD
+      "symbolIcon.moduleForeground": syntax.type, // TS.MODULE_NAME
+      "symbolIcon.namespaceForeground": syntax.type, // TS.MODULE_NAME
+      "symbolIcon.nullForeground": syntax.constant, // JSON.KEYWORD style
+      "symbolIcon.numberForeground": syntax.constant, // DEFAULT_NUMBER
+      "symbolIcon.objectForeground": syntax.className, // Like a class instance
+      "symbolIcon.operatorForeground": syntax.keywordOperator, // DEFAULT_OPERATION_SIGN
+      "symbolIcon.packageForeground": syntax.className, // GO_PACKAGE
+      "symbolIcon.propertyForeground": syntax.text, // CSS.PROPERTY_NAME or a general property light color
+      "symbolIcon.referenceForeground": syntax.text, // For references, if applicable
+      "symbolIcon.snippetForeground": syntax.defaultString, // String color
+      "symbolIcon.stringForeground": syntax.defaultString, // DEFAULT_STRING
+      "symbolIcon.structForeground": syntax.className, // Like a class
+      "symbolIcon.textForeground": syntax.text, // TEXT default
+      "symbolIcon.typeParameterForeground": syntax.parameter, // TYPE_PARAMETER_NAME_ATTRIBUTES
+      "symbolIcon.unitForeground": syntax.constant, // Number-like
+      "symbolIcon.variableForeground": syntax.text, // DEFAULT_LOCAL_VARIABLE
 
       "terminal.foreground": colors.fg,
       // Terminal
       "terminal.background": colors.bg,
       "terminal.border": colors.second,
-      "terminalCursor.background": "#F8F8F2",
-      "terminalCursor.foreground": "#E093D9",
+      "terminalCursor.background": syntax.text,
+      "terminalCursor.foreground": syntax.keyword,
       "terminal.ansiBlack": colors.bg,
       "terminal.ansiRed": "#FF5370",
       "terminal.ansiGreen": "#C3E88D",
       "terminal.ansiYellow": "#FFCB6B",
       "terminal.ansiBlue": "#82AAFF", // Standard blue, not from console outputs explicitly
-      "terminal.ansiMagenta": "#E093D9",
+      "terminal.ansiMagenta": syntax.keyword,
       "terminal.ansiCyan": "#89DDFF",
-      "terminal.ansiWhite": "#F8F8F2",
-      "terminal.ansiBrightBlack": "#616161",
+      "terminal.ansiWhite": syntax.text,
+      "terminal.ansiBrightBlack": syntax.comment,
       "terminal.ansiBrightRed": "#FF5370",
       "terminal.ansiBrightGreen": "#C3E88D",
       "terminal.ansiBrightYellow": "#FFCB6B",
       "terminal.ansiBrightBlue": "#82AAFF",
-      "terminal.ansiBrightMagenta": "#E093D9",
+      "terminal.ansiBrightMagenta": syntax.keyword,
       "terminal.ansiBrightCyan": "#89DDFF",
       "terminal.ansiBrightWhite": "#FFFFFF",
 
-      "editorBracketHighlight.foreground1": "#89DDFF",
-      "editorBracketHighlight.foreground2": "#89DDFF",
-      "editorBracketHighlight.foreground3": "#89DDFF",
-      "editorBracketHighlight.foreground4": "#E093D9",
-      "editorBracketHighlight.foreground5": "#89DDFF",
-      "editorBracketHighlight.foreground6": "#89DDFF", // Chosen purple
+      "editorBracketHighlight.foreground1": syntax.brackets,
+      "editorBracketHighlight.foreground2": syntax.brackets,
+      "editorBracketHighlight.foreground3": syntax.brackets,
+      "editorBracketHighlight.foreground4": syntax.brackets,
+      "editorBracketHighlight.foreground5": syntax.brackets,
+      "editorBracketHighlight.foreground6": syntax.brackets, // Chosen purple
       "editorBracketHighlight.unexpectedBracket.foreground": colors.text, // gray
 
       "gitDecoration.addedResourceForeground": colors.green,
@@ -350,7 +351,7 @@ export function getTheme({
       {
         scope: ["source", "text"],
         settings: {
-          foreground: "#F8F8F2",
+          foreground: syntax.text,
         },
       },
       // Comments
@@ -358,7 +359,7 @@ export function getTheme({
         name: "Comment",
         scope: ["comment", "punctuation.definition.comment"],
         settings: {
-          foreground: "#616161",
+          foreground: syntax.comment,
           fontStyle: "italic",
         },
       },
@@ -366,7 +367,7 @@ export function getTheme({
         name: "Doc Comment",
         scope: ["comment.block.documentation", "comment.line.documentation"],
         settings: {
-          foreground: "#616161",
+          foreground: syntax.comment,
           fontStyle: "italic",
         },
       },
@@ -378,7 +379,7 @@ export function getTheme({
           "comment.block.documentation variable.other", // Javadoc param name
         ],
         settings: {
-          foreground: "#E093D9",
+          foreground: syntax.keyword,
           fontStyle: "italic underline",
         },
       },
@@ -388,7 +389,7 @@ export function getTheme({
           "comment.block.documentation string", // For values within doc comments if any
         ],
         settings: {
-          foreground: "#F8F8F2",
+          foreground: syntax.text,
           fontStyle: "italic",
         },
       },
@@ -397,7 +398,7 @@ export function getTheme({
         name: "String",
         scope: "string",
         settings: {
-          foreground: "#C3E88D",
+          foreground: syntax.defaultString,
         },
       },
       {
@@ -407,14 +408,14 @@ export function getTheme({
           "string .source.regexp .meta.character-class", // Regex char class
         ],
         settings: {
-          foreground: "#89DDFF",
+          foreground: syntax.stringEscape,
         },
       },
       {
         name: "RegExp String",
         scope: "string.regexp",
         settings: {
-          foreground: "#C3E88D", // JS.REGEXP
+          foreground: syntax.defaultString, // JS.REGEXP
         },
       },
       // Numbers
@@ -422,7 +423,7 @@ export function getTheme({
         name: "Number",
         scope: "constant.numeric",
         settings: {
-          foreground: "#F78C6C",
+          foreground: syntax.number,
         },
       },
       // Booleans & Null
@@ -430,7 +431,7 @@ export function getTheme({
         name: "Boolean",
         scope: "constant.language.boolean",
         settings: {
-          foreground: "#F78C6C", // GO_TRUE_FALSE, RUBY_TRUE_FALSE, JSON.KEYWORD (for true/false)
+          foreground: syntax.boolean, // GO_TRUE_FALSE, RUBY_TRUE_FALSE, JSON.KEYWORD (for true/false)
           fontStyle: "italic", // JSON.KEYWORD implies italic
         },
       },
@@ -442,7 +443,7 @@ export function getTheme({
           "constant.language.undefined", // JS.NULL_UNDEFINED
         ],
         settings: {
-          foreground: "#F78C6C",
+          foreground: syntax.number,
           fontStyle: "italic", // JS.NULL_UNDEFINED font type 2
         },
       },
@@ -455,7 +456,7 @@ export function getTheme({
           "storage.modifier", // static, public, private etc.
         ],
         settings: {
-          foreground: "#E093D9",
+          foreground: syntax.keyword,
           fontStyle: "italic",
         },
       },
@@ -463,7 +464,7 @@ export function getTheme({
         name: "Keyword Operator",
         scope: "keyword.operator",
         settings: {
-          foreground: "#89DDFF",
+          foreground: syntax.keywordOperator,
         },
       },
       {
@@ -480,7 +481,7 @@ export function getTheme({
           "keyword.operator.new", // JAVA.NEW
         ],
         settings: {
-          foreground: "#E093D9", // From JAVA.IF_ELSE, JAVA.LOOP, etc.
+          foreground: syntax.keyword, // From JAVA.IF_ELSE, JAVA.LOOP, etc.
           fontStyle: "italic",
         },
       },
@@ -489,14 +490,14 @@ export function getTheme({
         name: "Punctuation (Braces, Brackets, Parentheses, Commas, Semicolons)",
         scope: ["punctuation", "meta.brace", "meta.delimiter"],
         settings: {
-          foreground: "#89DDFF",
+          foreground: syntax.punctuation,
         },
       },
       {
         name: "Import Type",
         scope: ["meta.import", "meta.block.ts"],
         settings: {
-          foreground: "#C3E88D",
+          foreground: syntax.type,
         },
       },
       // Variables & Parameters
@@ -510,14 +511,14 @@ export function getTheme({
           "support.variable",
         ],
         settings: {
-          foreground: "#F8F8F2",
+          foreground: syntax.text,
         },
       },
       {
         name: "Parameter",
         scope: "variable.parameter",
         settings: {
-          foreground: "#F78C6C",
+          foreground: syntax.number,
         },
       },
       {
@@ -540,7 +541,7 @@ export function getTheme({
           "variable.language.self",
         ],
         settings: {
-          foreground: "#FF5370", // From JS.THIS_SUPER, RUBY_SELF, RUST_SELF
+          foreground: syntax.className, // From JS.THIS_SUPER, RUBY_SELF, RUST_SELF
           fontStyle: "italic", // Often italic
         },
       },
@@ -553,7 +554,7 @@ export function getTheme({
           "support.function", // Built-in functions
         ],
         settings: {
-          foreground: "#98FF98",
+          foreground: syntax.functionDeclaration, // DEFAULT_FUNCTION_DECLARATION
         },
       },
       {
@@ -563,7 +564,7 @@ export function getTheme({
           "support.function.any-method", // More specific calls
         ],
         settings: {
-          foreground: "#8AFF80", // DEFAULT_FUNCTION_CALL
+          foreground: syntax.functionCall, // DEFAULT_FUNCTION_CALL
         },
       },
       // Classes, Interfaces, Types
@@ -574,14 +575,14 @@ export function getTheme({
           "support.class", // Built-in classes
         ],
         settings: {
-          foreground: "#FFCB6B",
+          foreground: syntax.className, // CLASS_NAME_ATTRIBUTES
         },
       },
       {
         name: "Abstract Class Name",
         scope: "entity.name.type.abstract", // Not standard, best guess
         settings: {
-          foreground: "#C3E88D",
+          foreground: syntax.type, // CLASS_NAME_ATTRIBUTES
         },
       },
       {
@@ -593,7 +594,7 @@ export function getTheme({
           "entity.name.type.interface",
         ],
         settings: {
-          foreground: "#C3E88D",
+          foreground: syntax.type,
           fontStyle: "italic",
         },
       },
@@ -601,14 +602,14 @@ export function getTheme({
         name: "Type Parameter / Generic",
         scope: "entity.name.type.parameter",
         settings: {
-          foreground: "#F78C6C", // TYPE_PARAMETER_NAME_ATTRIBUTES or KOTLIN_TYPE_PARAMETER
+          foreground: syntax.parameter, // TYPE_PARAMETER_NAME_ATTRIBUTES or KOTLIN_TYPE_PARAMETER
         },
       },
       {
         name: "Inherited Class",
         scope: "entity.other.inherited-class",
         settings: {
-          foreground: "#C3E88D", // DEFAULT_CLASS_REFERENCE
+          foreground: syntax.type, // DEFAULT_CLASS_REFERENCE
         },
       },
       // Instance/Static Members
@@ -620,14 +621,14 @@ export function getTheme({
           "member.access", // Fallback
         ],
         settings: {
-          foreground: "#F8F8F2",
+          foreground: syntax.text,
         },
       },
       {
         name: "Static Field/Property",
         scope: ["variable.static", "variable.other.static"],
         settings: {
-          foreground: "#F8F8F2",
+          foreground: syntax.text,
           fontStyle: "italic",
         },
       },
@@ -635,7 +636,7 @@ export function getTheme({
         name: "Static Final Field",
         scope: "variable.other.constant.static.final", // Highly specific, might not exist
         settings: {
-          foreground: "#F8F8F2",
+          foreground: syntax.text,
           fontStyle: "italic bold",
         },
       },
@@ -649,14 +650,14 @@ export function getTheme({
           "meta.annotation punctuation.definition.annotation", // Java @
         ],
         settings: {
-          foreground: "#E093D9", // ANNOTATION_NAME_ATTRIBUTES
+          foreground: syntax.keyword, // ANNOTATION_NAME_ATTRIBUTES
         },
       },
       {
         name: "Annotation Attribute Name",
         scope: "meta.annotation meta.attribute-pair variable.other", // Approximate
         settings: {
-          foreground: "#F78C6C",
+          foreground: syntax.parameter,
         },
       },
       // HTML / XML
@@ -664,21 +665,21 @@ export function getTheme({
         name: "HTML/XML Tag",
         scope: ["entity.name.tag", "punctuation.definition.tag"],
         settings: {
-          foreground: "#F07178", // DEFAULT_TAG
+          foreground: syntax.tag, // DEFAULT_TAG
         },
       },
       {
         name: "HTML/XML Tag Brackets",
         scope: "punctuation.definition.tag",
         settings: {
-          foreground: "#89DDFF", // HTML_TAG
+          foreground: syntax.punctuation, // HTML_TAG
         },
       },
       {
         name: "HTML/XML Attribute Name",
         scope: "entity.other.attribute-name",
         settings: {
-          foreground: "#FFCB6B", // DEFAULT_ATTRIBUTE
+          foreground: syntax.attribute, // DEFAULT_ATTRIBUTE
           fontStyle: "italic",
         },
       },
@@ -686,14 +687,14 @@ export function getTheme({
         name: "HTML/XML Attribute Value",
         scope: "string.quoted.double.html", // From HTML_ATTRIBUTE_VALUE -> DEFAULT_STRING
         settings: {
-          foreground: "#C3E88D",
+          foreground: syntax.defaultString, // DEFAULT_STRING
         },
       },
       {
         name: "HTML/XML Entity",
         scope: "constant.character.entity",
         settings: {
-          foreground: "#F78C6C", // DEFAULT_ENTITY
+          foreground: syntax.entity, // DEFAULT_ENTITY
         },
       },
       // CSS
@@ -701,14 +702,14 @@ export function getTheme({
         name: "CSS Tag Name",
         scope: "entity.name.tag.css",
         settings: {
-          foreground: "#F07178",
+          foreground: syntax.tag, // CSS.TAG
         },
       },
       {
         name: "CSS Class Name",
         scope: "entity.other.attribute-name.class.css",
         settings: {
-          foreground: "#FFCB6B",
+          foreground: syntax.className,
           fontStyle: "italic",
         },
       },
@@ -716,7 +717,7 @@ export function getTheme({
         name: "CSS ID Selector",
         scope: "entity.other.attribute-name.id.css",
         settings: {
-          foreground: "#E093D9", // CSS.HASH
+          foreground: syntax.keyword, // CSS.HASH
         },
       },
       {
@@ -726,7 +727,7 @@ export function getTheme({
           "entity.other.attribute-name.pseudo-class.css",
         ],
         settings: {
-          foreground: "#E093D9",
+          foreground: syntax.keyword,
           fontStyle: "italic",
         },
       },
@@ -734,7 +735,7 @@ export function getTheme({
         name: "CSS Property Name",
         scope: "support.type.property-name.css",
         settings: {
-          foreground: "#E0E1E4",
+          foreground: syntax.cssPropertyName, // CSS.PROPERTY_NAME
         },
       },
       {
@@ -745,21 +746,21 @@ export function getTheme({
           "support.constant.color.css", // CSS.COLOR
         ],
         settings: {
-          foreground: "#F78C6C", // CSS.PROPERTY_VALUE or EBC88D for color
+          foreground: syntax.cssPropertyValue, // CSS.PROPERTY_VALUE or EBC88D for color
         },
       },
       {
         name: "CSS Function",
         scope: "support.function.misc.css",
         settings: {
-          foreground: "#AF9CFF",
+          foreground: syntax.cssFunction, // CSS.FUNCTION
         },
       },
       {
         name: "CSS Important",
         scope: "keyword.other.important.css",
         settings: {
-          foreground: "#F78C6C",
+          foreground: syntax.cssPropertyValue,
           fontStyle: "italic",
         },
       },
@@ -767,7 +768,7 @@ export function getTheme({
         name: "CSS URL",
         scope: "variable.parameter.url.css",
         settings: {
-          foreground: "#89DDF7",
+          foreground: syntax.keyword,
           fontStyle: "underline",
         },
       },
@@ -776,14 +777,14 @@ export function getTheme({
         name: "JSON Property Key",
         scope: "support.type.property-name.json",
         settings: {
-          foreground: "#E093D9",
+          foreground: syntax.keyword,
         },
       },
       {
         name: "JSON Keyword (true, false, null)",
         scope: "constant.language.json",
         settings: {
-          foreground: "#F78C6C",
+          foreground: syntax.boolean,
           fontStyle: "italic",
         },
       },
@@ -792,14 +793,14 @@ export function getTheme({
         name: "Markdown Heading",
         scope: "markup.heading",
         settings: {
-          foreground: "#C3E88D", // MARKDOWN_HEADER_LEVEL_1
+          foreground: syntax.defaultString, // MARKDOWN_HEADER_LEVEL_1
         },
       },
       {
         name: "Markdown Bold",
         scope: "markup.bold",
         settings: {
-          foreground: "#F07178",
+          foreground: syntax.tag,
           fontStyle: "bold",
         },
       },
@@ -807,7 +808,7 @@ export function getTheme({
         name: "Markdown Italic",
         scope: "markup.italic",
         settings: {
-          foreground: "#F07178",
+          foreground: syntax.tag,
           fontStyle: "italic",
         },
       },
@@ -822,15 +823,15 @@ export function getTheme({
         name: "Markdown Link Text",
         scope: "string.other.link.title.markdown",
         settings: {
-          foreground: "#F07178",
-          fontStyle: "underline",
+          foreground: syntax.keyword,
+          fontStyle: "underline italic",
         },
       },
       {
         name: "Markdown Link Destination/URL",
         scope: "markup.underline.link.markdown",
         settings: {
-          foreground: "#F78C6C",
+          foreground: syntax.keyword,
         },
       },
       {
@@ -840,7 +841,7 @@ export function getTheme({
           "markup.fenced_code.block.markdown", // Code block
         ],
         settings: {
-          foreground: "#E093D9",
+          foreground: syntax.keyword,
           fontStyle: "italic", // MARKDOWN_CODE_SPAN_MARKER is italic
         },
       },
@@ -848,7 +849,7 @@ export function getTheme({
         name: "Markdown Quote",
         scope: "markup.quote.markdown",
         settings: {
-          foreground: "#98FF98",
+          foreground: syntax.functionCall,
           fontStyle: "italic",
         },
       },
@@ -856,7 +857,7 @@ export function getTheme({
         name: "Markdown List Marker",
         scope: "punctuation.definition.list.begin.markdown",
         settings: {
-          foreground: "#FF5370",
+          foreground: syntax.invalid,
           fontStyle: "italic",
         },
       },
@@ -866,7 +867,7 @@ export function getTheme({
         name: "Python Decorator",
         scope: "entity.name.function.decorator.python",
         settings: {
-          foreground: "#98FF98",
+          foreground: syntax.functionDeclaration,
         },
       },
       {
@@ -877,7 +878,7 @@ export function getTheme({
           "variable.parameter.function.keyword.python",
         ],
         settings: {
-          foreground: "#FF5370", // PY.SELF_PARAMETER
+          foreground: syntax.className, // PY.SELF_PARAMETER
           fontStyle: "italic", // PY.SELF_PARAMETER is italic, PY.KEYWORD_ARGUMENT is normal fg F78C6C
         },
       },
@@ -886,7 +887,7 @@ export function getTheme({
         name: "Java This/Super",
         scope: "variable.language.this.java",
         settings: {
-          foreground: "#FF5370",
+          foreground: syntax.className, // JAVA.THIS_SUPER
           fontStyle: "italic",
         },
       },
@@ -895,7 +896,7 @@ export function getTheme({
         name: "JS/TS Console",
         scope: "support.type.object.console.js",
         settings: {
-          foreground: "#FFCB6B",
+          foreground: syntax.className,
         },
       },
       {
@@ -906,7 +907,7 @@ export function getTheme({
           "variable.other.module.js", // If it's an identifier
         ],
         settings: {
-          foreground: "#C3E88D", // JS.MODULE_NAME
+          foreground: "syntax.defaultString", // JS.MODULE_NAME
           fontStyle: "italic",
         },
       },
@@ -914,13 +915,13 @@ export function getTheme({
         name: "TS Type Parameter",
         scope: "entity.name.type.parameter.ts",
         settings: {
-          foreground: "#FFCB6B",
+          foreground: syntax.className,
         },
       },
       {
         name: "Primitive Types",
         scope: [
-          'keyword.operator.expression',
+          "keyword.operator.expression",
           // TypeScript / JavaScript
           "support.type.primitive",
           "support.type.builtin", // For built-ins like 'ReadonlyArray' etc.
@@ -946,7 +947,7 @@ export function getTheme({
           "entity.name.type.primitive.rust", // A more specific guess for Rust primitives
         ],
         settings: {
-          foreground: "#E093D9",
+          foreground: syntax.keyword,
           fontStyle: "italic",
         },
       },
@@ -954,7 +955,7 @@ export function getTheme({
         name: "Variable Others",
         scope: ["variable.other.readwrite"],
         settings: {
-          foreground: "#FFCB6B",
+          foreground: syntax.className,
           fontStyle: "italic",
         },
       },
@@ -967,15 +968,14 @@ export function getTheme({
           "entity.name.namespace.rust", // crate
         ],
         settings: {
-          foreground: "#F78C6C", // Common color for RUST_CRATE, DYN, REF, TRUE_FALSE, UNSAFE, USE
-          // RUST_SELF is #FF5370 italic
+          foreground: syntax.parameter, // Common color for RUST_CRATE, DYN, REF, TRUE_FALSE, UNSAFE, USE
         },
       },
       {
         name: "Rust self (param)",
         scope: "variable.language.self.rust",
         settings: {
-          foreground: "#FF5370",
+          foreground: syntax.className,
           fontStyle: "italic",
         },
       },
@@ -983,7 +983,7 @@ export function getTheme({
         name: "Rust Lifetime",
         scope: "entity.name.type.lifetime.rust",
         settings: {
-          foreground: "#FFCB6B",
+          foreground: syntax.className,
           fontStyle: "italic",
         },
       },
@@ -991,7 +991,7 @@ export function getTheme({
         name: "Rust Macro",
         scope: "support.function.macro.rust",
         settings: {
-          foreground: "#F8F8F2", // org.rust.MACRO based on DEFAULT_IDENTIFIER
+          foreground: syntax.text, // org.rust.MACRO based on DEFAULT_IDENTIFIER
         },
       },
       // Generic invalid/deprecated
@@ -1000,14 +1000,14 @@ export function getTheme({
         scope: "invalid",
         settings: {
           // Effect color ff5370, effect type 2 (squiggly) usually handled by linter
-          foreground: "#FF5370", // Make text red as well
+          foreground: syntax.invalid, // Make text red as well
         },
       },
       {
         name: "Deprecated",
         scope: "invalid.deprecated",
         settings: {
-          foreground: "#616161",
+          foreground: syntax.comment,
           // Effect color 616161, effect type 3 (strikethrough)
           fontStyle: "strikethrough",
         },
@@ -1017,7 +1017,7 @@ export function getTheme({
         name: "Todo",
         scope: ["meta.todo", "keyword.other.documentation.todo"], // Common TODO scopes
         settings: {
-          foreground: "#FFEB95",
+          foreground: syntax.todo,
           fontStyle: "italic",
         },
       },

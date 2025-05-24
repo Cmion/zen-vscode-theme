@@ -1,13 +1,17 @@
 {
   "name": "zen-vscode-theme",
-  "displayName": "Zen Theme",
+  "displayName": "Zen theme for VS Code",
   "description": "Zen theme for VS Code",
   "version": "1.0.0",
-  "publisher": "Cmion",
+  "author": {
+    "name": "Cmion",
+    "github": "https://github.com/cmion"
+  },
+  "publisher": "cmion",
   "license": "MIT",
   "icon": "icon.png",
   "galleryBanner": {
-    "color": "#1b1f23",
+    "color": "#E093D9",
     "theme": "dark"
   },
   "repository": {
@@ -47,7 +51,6 @@
   "devDependencies": {
     "@changesets/changelog-github": "^0.5.1",
     "@changesets/cli": "^2.29.4",
-    "@primer/primitives": "7.10.0",
     "@types/bun": "latest",
     "@types/chroma-js": "^3.1.1",
     "@vscode/vsce": "^3.4.2",
@@ -57,8 +60,8 @@
   "scripts": {
     "start": "bun --hot src/index.ts",
     "build": "bun src/index.ts && mkdir -p build",
-    "package": "vsce package -o ./build/zen-vscode-theme.vsix",
-    "prepublishOnly": "bun run build && vsce publish",
+    "package": "bun vsce package -o ./build/zen-vscode-theme.vsix",
+    "prepublishOnly": "bun run build && bun vsce publish",
     "release": "changeset publish"
   },
   "publishConfig": {
